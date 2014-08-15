@@ -16,8 +16,8 @@ TriplexWriter triplexWriter1 = TriplexWriter();
 //TriplexWriter triplexWriter2 = TriplexWriter(0x41);
 
 // Create the Triangle levels
-TriangleSet set1 = TriangleSet(3, 5, 6, triplexWriter);
-TriangleSet set2 = TriangleSet(9, 10, 11, triplexWriter);
+TriangleSet set1 = TriangleSet(3, 5, 6, triplexWriter1);
+TriangleSet set2 = TriangleSet(9, 10, 11, triplexWriter1);
 TriangleSet layers[] = {set1, set2};
 
 // Define the sequences
