@@ -8,8 +8,8 @@
 const int NUM_LEVELS = 2;
 // number of sequences
 const int NUM_SEQUENCES = 2;
-// amount of time for each sequence (5 minutes)
-const unsigned long TIME_SEQUENCE = (5 * 60 * 1000);
+// amount of time for each sequence (1 minutes)
+const unsigned long TIME_SEQUENCE = 60000;
 
 // create the TriplexWriters
 TriplexWriter triplexWriter1 = TriplexWriter();
@@ -21,9 +21,10 @@ TriangleSet set2 = TriangleSet(9, 10, 11, triplexWriter1);
 TriangleSet layers[] = {set1, set2};
 
 // Define the sequences
-FadeSequence seq = FadeSequence(layers, NUM_LEVELS);
-SolidSequence aseq = SolidSequence(layers, NUM_LEVELS);
+FadeSequence seq = FadeSequence(layers, NUM_LEVELS, 50);
+SolidSequence aseq = SolidSequence(layers, NUM_LEVELS, 1000);
 AbstractSequence *const sequences[2] = {&seq, &aseq};
+//AbstractSequence *const sequences[1] = {&aseq};
 
 // our state variables
 int currentSequence;
@@ -46,9 +47,8 @@ void loop() {
     }
     
   }
-  int delayVal = 5;
+  int delayVal = 50;
   sequences[currentSequence]->step();
-  delay(delayVal);
 }
 
 

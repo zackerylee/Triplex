@@ -13,20 +13,22 @@ class AbstractSequence {
   protected:
     TriangleSet* triangles;
     int triangleListSize;
+    int rateOfChange;
 
 };
 
 class SolidSequence : public AbstractSequence {
     // super basic 3 color solid, probably thorw this away
   public:
-    inline SolidSequence(TriangleSet* triangleSet, int num) : AbstractSequence(triangleSet, num)  {
+    inline SolidSequence(TriangleSet* triangleSet, int num, int rateOfChangeMillis) : AbstractSequence(triangleSet, num)  {
       i = 1;
+      rateOfChange = rateOfChangeMillis;
     };
     inline void step() {
       switch (i % 3) {
         case 0:
           writeAll(0, 0, 255);
-          i = 0;
+          i = 1;
           break;
         case 1:
           writeAll(255, 0, 0);
@@ -37,6 +39,9 @@ class SolidSequence : public AbstractSequence {
           i++;
           break;
       }
+      // temporarily put a delay in here before i have a seziure and die
+      //  i want to write in the idea of a delay into the abstract class
+      delay(rateOfChange);
     };
   private:
     int i;
@@ -45,13 +50,14 @@ class SolidSequence : public AbstractSequence {
 class FadeSequence : public AbstractSequence {
     // fade all levels between all colors at once
   public:
-    inline FadeSequence(TriangleSet* triangleSet, int num) : AbstractSequence(triangleSet, num) {
+    inline FadeSequence(TriangleSet* triangleSet, int num, int rateOfChangeMillis) : AbstractSequence(triangleSet, num) {
       red = 255;
       blue = 1;
       green = 1;
       redInc = -1;
       greenInc = 1;
       blueInc = 0;
+      rateOfChange = rateOfChangeMillis;
     };
     inline void step() {
       //      for (int x = 0; x < triangleListSize; x++) {
@@ -76,6 +82,7 @@ class FadeSequence : public AbstractSequence {
         greenInc = 1;
         blueInc = 0;
       }
+      delay(rateOfChange);
     };
   private:
     int red;
