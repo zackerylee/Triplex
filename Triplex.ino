@@ -7,7 +7,7 @@
 // set the number of levels on the triplex
 const int NUM_LEVELS = 2;
 // number of sequences
-const int NUM_SEQUENCES = 5; //3;
+const int NUM_SEQUENCES = 6; //3;
 // amount of time for each sequence (1 minutes)
 const unsigned long TIME_SEQUENCE = 600000;
 
@@ -18,15 +18,19 @@ TriplexWriter triplexWriter1 = TriplexWriter();
 // Create the Triangle levels
 TriangleSet set1 = TriangleSet(3, 5, 6, triplexWriter1);
 TriangleSet set2 = TriangleSet(9, 10, 11, triplexWriter1);
-TriangleSet layers[] = {set1, set2};
+TriangleSet layers[] = {
+  set1, set2};
 
 // Define the sequences
+SleepingSequence sleepingSeq = SleepingSequence(layers, NUM_LEVELS, 0);
+GradualRiseSequence gradualRiseSeq = GradualRiseSequence(layers, NUM_LEVELS, 10);
 CycleRiseSequence cycleRiseSeq = CycleRiseSequence(layers, NUM_LEVELS, 1000);
 SolidRiseSequence solidRiseSeq = SolidRiseSequence(layers, NUM_LEVELS, 1000);
 MovingFadeSequence movingFadeSeq = MovingFadeSequence(layers, NUM_LEVELS, 5, 85);
 FadeSequence fadeSeq = FadeSequence(layers, NUM_LEVELS, 5);
 SolidSequence aseq = SolidSequence(layers, NUM_LEVELS, 1000);
-AbstractSequence *const sequences[NUM_SEQUENCES] = {&cycleRiseSeq, &solidRiseSeq, &movingFadeSeq, &fadeSeq, &aseq};
+AbstractSequence *const sequences[NUM_SEQUENCES] = { 
+  &gradualRiseSeq, &cycleRiseSeq, &solidRiseSeq, &movingFadeSeq, &fadeSeq, &aseq};
 //AbstractSequence *const sequences[1] = {&aseq};
 
 // our state variables
@@ -38,22 +42,26 @@ void setup() {
   lastChange = 0;
   //set1.manualWrite(255, 255, 255);
   //delay(1000);
+  //sleepingSeq.step();
+
 }
 
 void loop() {
   if (millis() - lastChange > TIME_SEQUENCE) {
     lastChange = millis();
-    
+
     //TODO should we have something that fires between sequences? or just clear all the lights? 
-    
+    sleepingSeq.step();
+
     currentSequence += 1;
     if (currentSequence > NUM_SEQUENCES) {
       currentSequence = 0;
     }
-    
+
   }
   sequences[currentSequence]->checkedStep();
 }
+
 
 
 
