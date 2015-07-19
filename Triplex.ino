@@ -1,6 +1,9 @@
+
 #include "TriangleSet.h"
 #include "TriplexWriter.h"
 #include "SequenceRoutines.h"
+#include <Wire.h>
+#include <Adafruit_PWMServoDriver.h>
 
 // Configuration Constants
 
@@ -13,11 +16,17 @@ const unsigned long TIME_SEQUENCE = 600000;
 
 // create the TriplexWriters
 TriplexWriter triplexWriter1 = TriplexWriter();
-//TriplexWriter triplexWriter2 = TriplexWriter(0x41);
+TriplexWriter triplexWriter2 = TriplexWriter(0x41);
 
-// Create the Triangle levels
+// Create the Triangle levels that are on the first sheild
+// define: TriangleSet(red_pin, green_pin, blue_pin, shield)
 TriangleSet set1 = TriangleSet(3, 5, 6, triplexWriter1);
 TriangleSet set2 = TriangleSet(9, 10, 11, triplexWriter1);
+
+// Triangles that are on the second shield
+//TriangleSet set3 = TriangleSet(3, 5, 6, triplexWriter2);
+//TriangleSet set4 = TriangleSet(9, 10, 11, triplexWriter2);
+
 TriangleSet layers[] = {
   set1, set2};
 

@@ -1,8 +1,9 @@
+
 #ifndef TriplexWriter_H
 #define TriplexWriter_H
 
 #include "Arduino.h"
-//#include "Adafruit_PMWServoDriver.h"
+#include <Adafruit_PWMServoDriver.h>
 
 const int SIMPLE_MODE = 1;
 const int SHIELD_MODE = 2;
@@ -18,7 +19,7 @@ public:
 private:
 	int mode;
 	uint8_t address;
-	//Adafruit_PMWServoDriver driver;
+	Adafruit_PWMServoDriver pwm;
 };
 
 #endif
