@@ -6,17 +6,19 @@
 #include <Adafruit_PWMServoDriver.h>
 
 // Configuration Constants
+#define SHIELD_1 0x40
+#define SHIELD_2 0x41
 
 // set the number of levels on the triplex
 const int NUM_LEVELS = 2;
 // number of sequences
 const int NUM_SEQUENCES = 6; //3;
 // amount of time for each sequence (1 minutes)
-const unsigned long TIME_SEQUENCE = 600000;
+const unsigned long TIME_SEQUENCE = 60000;
 
 // create the TriplexWriters
-TriplexWriter triplexWriter1 = TriplexWriter();
-TriplexWriter triplexWriter2 = TriplexWriter(0x41);
+TriplexWriter triplexWriter1 = TriplexWriter(SHIELD_1);
+//TriplexWriter triplexWriter2 = TriplexWriter(SHIELD_2);
 
 // Create the Triangle levels that are on the first sheild
 // define: TriangleSet(red_pin, green_pin, blue_pin, shield)
@@ -47,12 +49,13 @@ int currentSequence;
 unsigned long lastChange;
 
 void setup() {
+  Serial.begin(9600);
+  Serial.println("initialize triplex");
+
   currentSequence = 0;
   lastChange = 0;
-  //set1.manualWrite(255, 255, 255);
-  //delay(1000);
-  //sleepingSeq.step();
-
+  triplexWriter1.setup();
+  //triplexWriter2.setup();
 }
 
 void loop() {
