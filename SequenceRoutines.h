@@ -272,6 +272,31 @@ private:
   int dir;
 };
 
+class RandomSequence : 
+public AbstractSequence {
+  // super basic 3 color solid, probably thorw this away
+public:
+  inline RandomSequence(TriangleSet* triangleSet, int num, int rateOfChangeMillis) : 
+  AbstractSequence(triangleSet, num)  {
+    rateOfChange = rateOfChangeMillis;
+    redColor = Color(random(0, 255));
+    greenColor = Color(random(0, 255));
+    blueColor = Color(random(0, 255)); 
+
+  };
+  inline void step() {
+    for (int x = 0; x < triangleListSize; x++) {
+      triangles[x].manualWrite(random(0, 255), random(0, 255), random(0, 255));
+    }
+//    writeAll(redColor.write(), greenColor.write(), blueColor.write());
+//    redColor.increment(random(0, 255));
+//    greenColor.increment(random(0, 255));
+//    blueColor.increment(random(0, 255));
+  };
+private:
+};
+
+
 /**
  * I found this routine that claims to do the almost-too-life-like "breathing"/"sleeping" light that is on the front of the macs..
  * I'm skeptical about how close it is though. It's not much better then just doing a steady fade
@@ -333,7 +358,7 @@ public:
         delay(19);
       }
     }
-    delay(1000);    
+    //delay(1000);    
   }
 };
 

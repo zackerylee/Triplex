@@ -1,7 +1,8 @@
 #include "TriplexWriter.h"
 
-TriplexWriter::TriplexWriter(uint8_t shieldAddress) {
+TriplexWriter::TriplexWriter(uint8_t shieldAddress, int pPower) {
   address = shieldAddress;
+  power = pPower;
 }
 
 void TriplexWriter::setup() {
@@ -14,5 +15,6 @@ void TriplexWriter::setup() {
 }
 
 void TriplexWriter::write(int pin, int value) {
-  pwm.setPWM(pin, 0, map(value, 0, 255, 4095, 0));
+  int mapVal = map(value, 0, 255, 4095, power);
+  pwm.setPWM(pin, 0, mapVal);
 }
