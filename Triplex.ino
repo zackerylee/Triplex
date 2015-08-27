@@ -40,7 +40,7 @@ TriangleSet set9 = TriangleSet(6, 7, 8, triplexWriter2);
 TriangleSet set6 = TriangleSet(9, 10, 11, triplexWriter2);
 
 
-TriangleSet topTriangle = TriangleSet(3, 5, 6, triplexWriter1);
+TriangleSet topTriangle = TriangleSet(12, 13, 14, triplexWriter2);
 
 TriangleSet layers[] = {
   set1,
